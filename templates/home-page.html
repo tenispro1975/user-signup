@@ -1,9 +1,51 @@
+
 <!DOCTYPE html>
 <html>
-    <head>
-    </head>
-        <body>
-        
-        </body>
-
-</html>
+        <head>
+        <style>
+        .error {color: #FF0000;}
+        </style>
+        </head>
+            <body>
+                <h1><b>Signup</b></h1>
+                <form method="post">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label for="username">Username</label>   
+                                </td>
+                                <td>
+                                    <input name="username" type="text" value={{username}} /><p class="error">{{username_err}}</p>  
+                                </td>
+                            </tr>
+                            <tr> 
+                                <td>
+                                    <label for="password">Password</label>                      
+                                </td>
+                                <td>
+                                    <input name="password" type="password" value={{password}}/><p class="error">{{password_err}}>/p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="verify_password">Verify Password</label>
+                                </td>
+                                <td>
+                                    <input name="verify_password" type="password" value={{verify_password}}/><p class="error">{{verify_password_err}}>/p>
+                                 </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="email">Email (optional)</label>
+                                </td>
+                                <td>
+                                    <input name="email" type="text" value={{email}}/><p class="error">{{email_err}}>/p>
+                                 </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <input type="submit" value="Submit"/> 
+                </form>
+            </body>
+    </html>

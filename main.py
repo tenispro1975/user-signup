@@ -1,37 +1,23 @@
 from flask import Flask, request, render_template
 import cgi
+import jinja2
+import os
+
+template_dir = os.path.join(os.path.dirname(__file__), 'templates')
+jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape=True)
+
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
-form = """
-<!DOCTYPE html>
-<html>
-    <head>
-    <style>
-    .error {color: #FF0000;}
-    </style>
-    </head>
-        <body>
-            
 
-            <form action="/welcome", method="post">
-                <p style="font-size: 75;"><b>Signup<b></p>         
-                    Username <input type="text" name="Username"/><br>
-                    <span class="error"><username_Err;></span>
-                    Password <input type="text" name="Password"/><br>
-                    <span class="error"><password_Err;></span>
-                    Verify Pasword <input type="password name="Verify Password"/><br>
-                    <span class="error"><verify_password_err;></span>
-                    Email (optional) <input type="text" name="Email (optional)"/><br> 
-                    <span class="error"><email_err;></span>
-                    <input type="Submit"/> 
-            </form>
-        </body>
-</html>
-"""
+@app.route("/")
+def index():
+    template = jinja_env.get_template('home-page.html')
+    return template_render('home-page.html', username_err = '', password_err = '', verify_password_err = '', email_err = '')
+
 def empty_text(string):
-    if string == " ":
+    if username == "" or password == "" or verify_password == "":  
         return False
     return True
 
@@ -39,10 +25,10 @@ def empty_text(string):
 @app.route("/")
 def validate_info():
 
-    username = request.form['username']
-    password = request.form['password']
-    verify_password = request.form['verify password']
-    email = request.form['email']
+    Username = request.form['Username']
+    Password = request.form['Password']
+    Verify_password = request.form['Verify password']
+    Email = request.form['Email']
 
     username_err = ''
     password_err = ''
@@ -53,46 +39,53 @@ def validate_info():
          username_err = 'Not valid format'
          username = ''
     else:
-        if username not in range(3-20):
-            username_err = 'Username value out of range(3-20)'
+        if len(username) < 3 or len(username) > 20 or ' ' in username:
+            username_err = 'Username not valid'
             username = ''
 
     if not isalpha(password):
         password_err = 'Not valid format'
         password = ''
     else:
-        if password not in range(3-20):
-            password_err = 'Password value out of range(3-20)'
+        if len(password) < 3 or len(password) > 20 or " " in password:
+            password_err = 'Password not valid'
             password = ''
 
     if not isalpha(verify_password):
-        verify_password_err = 'Does not match'
+        verify_password_err = 'Not valid format'
         verify_password = ''
     else:
-        if veryfy_password not in range(3-20):
-            verify_password_err = 'Password value out of range(3-20)'
+        if not verify_password == password:
+            verify_password_err = 'Password does not match'
             verify_password = ''
+        
+    if not username_err and not password_err and not verify_password_err and not email_err:
+        template = jinja_env.get_template('welcome.html')
+        return template.render(username=username)
 
-    def is_valid(email):
-        p_count = 0
-        at_count = 0
-        for char in email:
-            elif char = "":
-            elif char is not in range of (3-20):
-            elif char does not contain "@":
-            elif char == ".":
-                p_count = p_count + 1
-            elif char == "@":
-                at_count = at_count + 1
-                return 'Not valid format'           
 
-@app.route("/")
-def index():
-   return form
+
+def is_valid(email):
+    p_count = 0
+    at_count = 0
+    for char in email:
+        if len(email) >=1 and len(email) < 3 or len(email) > 20: 
+            return 'Not valid format'                              
+        #elif email does not contain  "@":               
+            #return 'Not valid format'
+        elif char == ".":
+            p_count = p_count + 1
+            return 'Not valid format'
+        elif char == "@":
+            at_count = 1
+            return True
+            at_count = at_count + 1
+            return 'Not valid format'           
 
 @app.route("/welcome", methods=['POST'])
-def welcome():
-    Username = request.form['Username']
-    return '<h1>Welcome ' + cgi.escape(username) + '<h1>'
+def welcome():  
+    username=request.form['username']
+    template = jinja_env.get_template('welcome.html')
+    return template_render('welcome.html', username=username)
 
 app.run()
