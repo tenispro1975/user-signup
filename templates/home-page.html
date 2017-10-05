@@ -2,18 +2,19 @@
 <!DOCTYPE html>
 <html>
         <head>
+        <title>Signup</title>
         <style>
         .error {color: #FF0000;}
         </style>
         </head>
             <body>
                 <h1><b>Signup</b></h1>
-                <form method="post">
+                <form action="/" method="post">
                     <table>
                         <tbody>
                             <tr>
                                 <td>
-                                    <label for="username">Username</label>   
+                                    <label for="username">username</label>   
                                 </td>
                                 <td>
                                     <input name="username" type="text" value={{username}}><p class="error">{{username_err}}</p>
@@ -21,7 +22,7 @@
                             </tr>
                             <tr> 
                                 <td>
-                                    <label for="password">Password</label>                      
+                                    <label for="password">password</label>                      
                                 </td>
                                 <td>
                                     <input name="password" type="password" value={{password}}><p class="error">{{password_err}}</p>
@@ -29,7 +30,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <label for="verify_password">Verify Password</label>
+                                    <label for="verify_password">verify password</label>
                                 </td>
                                 <td>
                                     <input name="verify_password" type="password" value={{verify_password}}><p class="error">{{verify_password_err}}</p>
@@ -37,7 +38,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <label for="email">Email (optional)</label>
+                                    <label for="email">email (optional)</label>
                                 </td>
                                 <td>
                                     <input name="email" type="text" value={{email}}><p class="error">{{email_err}}</p>
