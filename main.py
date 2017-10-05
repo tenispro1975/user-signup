@@ -14,7 +14,7 @@ app.config['DEBUG'] = True
 @app.route("/")
 def index():
     template = jinja_env.get_template('home-page.html')
-    return template_render('home-page.html', username_err = '', password_err = '', verify_password_err = '', email_err = '')
+    return render_template('home-page.html', username ='',username_err = '', password='', password_err = '', verify_password ='', verify_password_err = '', email='', email_err = '')
 
 def empty_text(string):
     if username == "" or password == "" or verify_password == "":  
@@ -35,9 +35,12 @@ def validate_info():
     verify_password_err = ''
     email_err = ''
 
+    #p_count = 0 
+    #at_count = 0
+
     if not isalpha(username):
-         username_err = 'Not valid format'
-         username = ''
+        username_err = 'Not valid format'
+        username = ''
     else:
         if len(username) < 3 or len(username) > 20 or ' ' in username:
             username_err = 'Username not valid'
@@ -59,35 +62,37 @@ def validate_info():
             verify_password_err = 'Password does not match'
             verify_password = ''
         
+    if len(email) >=1 and len(email) < 3 or len(email) > 20 or "@" not in email or "." not in email: 
+        email_err= 'Not valid email format'                              
+        email = ''
+    
     if not username_err and not password_err and not verify_password_err and not email_err:
         template = jinja_env.get_template('welcome.html')
-        return template.render(username=username)
+        return render_template(username=username)
 
     else:
         template = jinja_env.get_template('home-page.html')
-        return template.render(username_err=username_err, password_err=password_err, verify_password_err=verify_password_err, email_err=email_err, username=username, password=password, verify_password=verify_password, email=email)
+        return render_template(username_err=username_err, password_err=password_err, verify_password_err=verify_password_err, email_err=email_err, username=username, password=password, verify_password=verify_password, email=email)
 
-def is_valid(email):
-    p_count = 0
-    at_count = 0
-    for char in email:
-        if len(email) >=1 and len(email) < 3 or len(email) > 20: 
-            return 'Not valid format'                              
+#def is_valid(email):
+    #if len(email) >=1 and len(email) < 3 or len(email) > 20 or "@" not in email or "." not in email: 
+        #email_er r= 'Not valid email format'                              
+        #email = ''
         #elif email does not contain  "@":               
             #return 'Not valid format'
-        elif char == ".":
-            p_count = p_count + 1
-            return 'Not valid format'
-        elif char == "@":
-            at_count = 1
-            return True
-            at_count = at_count + 1
-            return 'Not valid format'           
+    #elif char == ".":
+       # p_count = p_count + 1
+       #return 'Not valid format'
+    #elif char == "@":
+        #at_count = 1
+        #return True
+        #at_count = at_count + 1
+        #return 'Not valid format'           
 
 @app.route("/welcome", methods=['POST'])
 def welcome():  
     username=request.form['username']
     template = jinja_env.get_template('welcome.html')
-    return template_render('welcome.html', username=username)
+    return render_template('welcome.html', username=username)
 
 app.run()
