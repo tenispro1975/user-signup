@@ -63,7 +63,9 @@ def validate_info():
         template = jinja_env.get_template('welcome.html')
         return template.render(username=username)
 
-
+    else:
+        template = jinja_env.get_template('home-page.html')
+        return template.render(username_err=username_err, password_err=password_err, verify_password_err=verify_password_err, email_err=email_err, username=username, password=password, verify_password=verify_password, email=email)
 
 def is_valid(email):
     p_count = 0
