@@ -16,13 +16,7 @@ def index():
     template = jinja_env.get_template('home-page.html')
     return render_template('home-page.html', username ='',username_err = '', password='', password_err = '', verify_password ='', verify_password_err = '', email='', email_err = '')
 
-def empty_text(string):
-    if username == "" or password == "" or verify_password == "":  
-        return False
-    return True
-
-
-@app.route("/")
+@app.route("/", methods=['POST'])
 def validate_info():
 
     Username = request.form['Username']
@@ -35,20 +29,23 @@ def validate_info():
     verify_password_err = ''
     email_err = ''
 
-    #p_count = 0 
-    #at_count = 0
-
     if not isalpha(username):
         username_err = 'Not valid format'
         username = ''
-    else:
-        if len(username) < 3 or len(username) > 20 or ' ' in username:
-            username_err = 'Username not valid'
+        if username == "":
+            username_err = 'Please enter a username'
             username = ''
+        else:
+            if len(username) < 3 or len(username) > 20 or ' ' in username:
+                username_err = 'Username not valid'
+                username = ''
 
     if not isalpha(password):
         password_err = 'Not valid format'
         password = ''
+        if password == "":
+            password_err = 'Please enter a password'  
+            password = ''
     else:
         if len(password) < 3 or len(password) > 20 or " " in password:
             password_err = 'Password not valid'
@@ -57,12 +54,15 @@ def validate_info():
     if not isalpha(verify_password):
         verify_password_err = 'Not valid format'
         verify_password = ''
+        if verify_password == "":
+            verify_password_err = 'Please verify password' 
+            verify_password = ''
     else:
         if not verify_password == password:
             verify_password_err = 'Password does not match'
             verify_password = ''
         
-    if len(email) >=1 and len(email) < 3 or len(email) > 20 or "@" not in email or "." not in email: 
+    if len(email) >=1 and (len(email) < 3) or (len(email) > 20) or "@" not in email or "." not in email: 
         email_err= 'Not valid email format'                              
         email = ''
     
