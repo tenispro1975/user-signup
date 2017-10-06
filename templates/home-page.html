@@ -1,52 +1,50 @@
 
 <!DOCTYPE html>
 <html>
-        <head>
-        <title>Signup</title>
-        <style>
-        .error {color: #FF0000;}
-        </style>
-        </head>
-            <body>
-                <h1><b>Signup</b></h1>
-                <form action="/" method="post">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <label for="username">username</label>   
-                                </td>
-                                <td>
-                                    <input name="username" type="text" value={{username}}><p class="error">{{username_err}}</p>
-                                </td>
-                            </tr>
-                            <tr> 
-                                <td>
-                                    <label for="password">password</label>                      
-                                </td>
-                                <td>
-                                    <input name="password" type="password" value={{password}}><p class="error">{{password_err}}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="verify_password">verify password</label>
-                                </td>
-                                <td>
-                                    <input name="verify_password" type="password" value={{verify_password}}><p class="error">{{verify_password_err}}</p>
-                                 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="email">email (optional)</label>
-                                </td>
-                                <td>
-                                    <input name="email" type="text" value={{email}}><p class="error">{{email_err}}</p>
-                                 </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <input type="submit" value="Submit"/> 
-                </form>
-            </body>
+    <head>
+    <title>Signup</title>
+    <style>.error {color: #FF0000;}</style>
+    </head>
+        <body>
+            <h1><b>Signup</b></h1>
+            <form action="/" method="post">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label for="username">username</label>   
+                            </td>
+                            <td>
+                                <input name="username" type="text" value="{{username}}"/><p class="error">{{username_err}}</p>
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>
+                                <label for="password">password</label>                      
+                            </td>
+                            <td>
+                                <input name="password" type="password" /><p class="error">{{password_err}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="verify_password">verify password</label>
+                            </td>
+                            <td>
+                                <input name="verify_password" type="password" /><p class="error">{{verify_password_err}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="email">email (optional)</label>
+                            </td>
+                            <td>
+                                <input name="email" type="text" value="{{email}}"/><p class="error">{{email_err}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="submit" text="submit"/> 
+            </form>
+        </body>
     </html>
